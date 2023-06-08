@@ -20,4 +20,24 @@ router.post("/add", async (req, res) => {
         res.status(401).json({ success: false, message: "Something went wrong" })
     }
 })
+router.put('/edit/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const changeTask = await Todos.findByIdAndUpdate({ _id: id }, req.body, { change: true });
+        res.status(200).json({ success: true, message: "Task completed successfully", changeTask })
+    } catch (error) {
+        res.status(401).json({ success: false, message: "Something went wrong" })
+
+    }
+})
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const changeTask = await Todos.deleteOne({ _id: id });
+        res.status(200).json({ success: true, message: "Deleted Successfully", changeTask })
+    } catch (error) {
+        res.status(401).json({ success: false, message: "Something went wrong" })
+
+    }
+})
 module.exports = router
